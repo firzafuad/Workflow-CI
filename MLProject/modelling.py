@@ -28,20 +28,18 @@ if __name__ == "__main__":
     ngram_range = (1, int(sys.argv[2])) if len(sys.argv) > 2 else (1, 1)
     C = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0
 
-    with mlflow.start_run():
+    svc = Pipeline(
+        steps=[
+            ("tfidf", TfidfVectorizer(max_features=max_features, ngram_range=ngram_range)),
+            ("svc", LinearSVC(C=C))
+        ]
+    )
+    svc.fit(X_train, y_train)
 
-        svc = Pipeline(
-            steps=[
-                ("tfidf", TfidfVectorizer(max_features=max_features, ngram_range=ngram_range)),
-                ("svc", LinearSVC(C=C))
-            ]
-        )
-        svc.fit(X_train, y_train)
+    mlflow.sklearn.log_model(sk_model=svc, name="linear_svc", input_example=input_example)
+    y_pred = svc.predict(X_test)
 
-        mlflow.sklearn.log_model(sk_model=svc, name="linear_svc", input_example=input_example)
-        y_pred = svc.predict(X_test)
-
-        mlflow.log_metric("f1_score", f1_score(y_test, y_pred))
-        mlflow.log_metric("accuracy", accuracy_score(y_test, y_pred))
-        mlflow.log_metric("precision", precision_score(y_test, y_pred))
-        mlflow.log_metric("recall", recall_score(y_test, y_pred))
+    mlflow.log_metric("f1_score", f1_score(y_test, y_pred))
+    mlflow.log_metric("accuracy", accuracy_score(y_test, y_pred))
+    mlflow.log_metric("precision", precision_score(y_test, y_pred))
+    mlflow.log_metric("recall", recall_score(y_test, y_pred))
