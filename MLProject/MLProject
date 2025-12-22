@@ -1,0 +1,12 @@
+name: spam-detector-mlflow
+ 
+conda_env: conda.yaml
+ 
+entry_points:
+  main:
+    parameters:
+      max_features: {type: int, default: 5000}
+      ngram_range: {type: int, default: 1}
+      C: {type: float, default: 1.0}
+      dataset : {type: string, default: "email_text_preprocessed.csv"}
+    command: "python modelling.py {max_features} {ngram_range} {C} {dataset}"
