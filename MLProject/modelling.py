@@ -30,11 +30,11 @@ max_features = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
 ngram_range = (1, int(sys.argv[2])) if len(sys.argv) > 2 else (1, 1)
 c = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/.."
 TRACKING_DIR = os.path.join(BASE_DIR, "mlruns")
 
-mlflow.set_tracking_uri("file://" + TRACKING_DIR)
-mlflow.set_experiment("CI_Workflow_Model")
+mlflow.set_tracking_uri("sqlite:///mlflow.db")
+mlflow.set_experiment("Span Detection")
 
 with mlflow.start_run():
     svc = Pipeline(
