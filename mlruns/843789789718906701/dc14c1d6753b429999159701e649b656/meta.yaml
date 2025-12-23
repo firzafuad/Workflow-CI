@@ -1,0 +1,14 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/mlruns/843789789718906701/dc14c1d6753b429999159701e649b656/artifacts
+end_time: 1766512649303
+entry_point_name: ''
+experiment_id: '843789789718906701'
+lifecycle_stage: active
+run_id: dc14c1d6753b429999159701e649b656
+run_name: industrious-hawk-266
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766512643916
+status: 3
+tags: []
+user_id: runner
