@@ -14,27 +14,27 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from pathlib import Path
 import importlib.util as importlib_util
 
-if __name__ == "__main__":
-    file_path = sys.argv[4] if len(sys.argv) > 4 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "email_text_preprocessed.csv")
+file_path = sys.argv[4] if len(sys.argv) > 4 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "email_text_preprocessed.csv")
 
-    data = pd.read_csv(file_path)
-    data = data.dropna().drop_duplicates()
+data = pd.read_csv(file_path)
+data = data.dropna().drop_duplicates()
 
-    X = data["cleaned_text"]
-    y = data["label"]
+X = data["cleaned_text"]
+y = data["label"]
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42
-    )
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
 
-    input_example = np.array(X_test[0:5])
-    max_features = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
-    ngram_range = (1, int(sys.argv[2])) if len(sys.argv) > 2 else (1, 1)
-    c = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0
+input_example = np.array(X_test[0:5])
+max_features = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
+ngram_range = (1, int(sys.argv[2])) if len(sys.argv) > 2 else (1, 1)
+c = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0
 
+with mlflow.start_run():
     svc = Pipeline(
         steps=[
             ("tfidf", TfidfVectorizer(max_features=max_features, ngram_range=ngram_range)),
