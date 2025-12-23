@@ -2,7 +2,6 @@ import os
 import sys
 import numpy as np
 import pandas as pd
-import subprocess
 
 import mlflow
 from sklearn.model_selection import train_test_split
@@ -10,9 +9,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
-from pathlib import Path
-import importlib.util as importlib_util
 
 file_path = sys.argv[4] if len(sys.argv) > 4 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "email_text_preprocessed.csv")
 
@@ -43,7 +39,7 @@ with mlflow.start_run():
     )
     svc.fit(X_train, y_train)
 
-    mlflow.sklearn.log_model(sk_model=svc, name="linear_svc", input_example=input_example)
+    mlflow.sklearn.log_model(sk_model=svc, artifact_path="model", input_example=input_example)
     y_pred = svc.predict(X_test)
 
     mlflow.log_metric("f1_score", f1_score(y_test, y_pred))
