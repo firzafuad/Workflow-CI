@@ -40,6 +40,12 @@ with mlflow.start_run():
     svc.fit(X_train, y_train)
 
     mlflow.sklearn.log_model(sk_model=svc, artifact_path="model", input_example=input_example)
+    mlflow.sklearn.save_model(svc, "model")
+
+    # debugging info
+    print(f"RUN_ID={mlflow.active_run().info.run_id}")
+    print("MODEL_DIR=model_local")
+    
     y_pred = svc.predict(X_test)
 
     mlflow.log_metric("f1_score", f1_score(y_test, y_pred))
