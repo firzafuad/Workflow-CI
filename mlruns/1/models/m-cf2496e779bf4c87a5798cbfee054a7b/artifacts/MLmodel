@@ -1,0 +1,32 @@
+artifact_path: /home/runner/work/Workflow-CI/Workflow-CI/mlruns/1/models/m-cf2496e779bf4c87a5798cbfee054a7b/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+is_signature_from_type_hint: false
+mlflow_version: 3.8.0
+model_id: m-cf2496e779bf4c87a5798cbfee054a7b
+model_size_bytes: 144852
+model_uuid: m-cf2496e779bf4c87a5798cbfee054a7b
+prompts: null
+run_id: 6cad168dbdb1442aab578d0945e5ae95
+saved_input_example_info:
+  artifact_path: input_example.json
+  serving_input_path: serving_input_example.json
+  type: ndarray
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "object", "shape": [-1]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-12-23 19:02:11.518272'
