@@ -30,6 +30,7 @@ max_features = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
 ngram_range = (1, int(sys.argv[2])) if len(sys.argv) > 2 else (1, 1)
 c = float(sys.argv[3]) if len(sys.argv) > 3 else 1.0
 
+mlflow.set_tracking_uri("http://127.0.0.1:5000/")
 mlflow.set_experiment("Spam Detection")
 
 with mlflow.start_run():
